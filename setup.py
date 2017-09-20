@@ -1,16 +1,16 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='auto_ms',
-      version='0.0.1',
+      packages=find_packages(),
+      version='0.0.2',
       author='klim314',
       description='Tools for processing MS output',
       author_email='klim314@gmail.com',
-      packages=['auto_ms'],
       entry_points={"console_scripts": [
           "ms_split_temp=auto_ms.main:tempsplit_entry",
       ]},
       zip_safe=False,
-      url='https://github.com/Klim314/auto_ms',
+      url='https://github.com/klim314/auto_ms',
       classifiers=['Development Status :: 3 - Alpha',
                    # Indicate who your project is intended for
                    'Intended Audience :: Science/Research',
