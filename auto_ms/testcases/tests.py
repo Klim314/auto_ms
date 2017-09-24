@@ -4,7 +4,7 @@ import os
 
 class Test1:
     def setUp(self):
-        self.test_input = 'testdata/ErCOTTHFBPh4-ac-vartemp-1750Oe.ac.dat'
+        self.test_input = 'testdata/d1.dat'
 
     def test_input_exists(self):
         assert(os.path.exists(self.test_input))
