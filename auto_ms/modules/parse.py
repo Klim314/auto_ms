@@ -24,6 +24,10 @@ def parse_file(file_path):
 def parse_header(header_list):
     """
     reads header listdata, returns dictionary
+    args:
+
+    returns:
+        defaultdict ob
     """
     # handle the different key depths
     keys = {'title': 1,
@@ -55,5 +59,12 @@ def parse_header(header_list):
 
 
 def parse_data(data_list):
+    """
+    Process the parsed data into a dataframe
+    args:
+        data_list (lst): 
+    returns:
+        dataframe object containing 
+    """
     fakefile = StringIO('\n'.join(data_list))
     return pd.read_csv(fakefile, sep=',', index_col=None)

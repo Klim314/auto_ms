@@ -1,8 +1,9 @@
 import os
-from auto_ms.modules import parse, process
+from modules import parse, process
 from pprint import pprint
 from collections import defaultdict
 import argparse
+import tkinter as tk
 
 def tempsplit_entry():
     parser = argparse.ArgumentParser()
@@ -25,15 +26,13 @@ def tempsplit(target_path, outdir):
         os.makedirs(os.path.join(outdir, 'tsvs'))
     for temp, df in split_data.items():
         print('Processing temperature: {}'.format(temp))
-        df = df[['Field (Oe)', 'Temperature (K)', "m' (emu)", 'm\" (emu)', 'Wave Frequency (Hz)']]
+        df = process.subset(df)
         df.to_csv(os.path.join(outdir, 'tsvs', "T{}.tsv".format(temp)), 
                   sep="\t",
                   index=None,
                   quoting=3)
     print("Completed")
     return 0
-
-
 
 
 def execute(target_path, out_path):
@@ -57,5 +56,11 @@ def execute(target_path, out_path):
                   quoting=3)
 
 if __name__ == '__main__':
+    
 
-    execute('testdata/ErCOTTHFBPh4-ac-vartemp-1750Oe.ac.dat', 'output/testout')
+
+
+    tk.mainloop()
+
+    process.make_excel('testdata/d1.dat', 'output/test.xlsx')
+    # execute('testdata/d1.dat', 'output/testout')
