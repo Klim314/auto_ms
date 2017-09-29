@@ -14,6 +14,7 @@ def tempsplit_entry():
 
 
 def tempsplit(target_path, outdir):
+    outdir, target_path = os.path.normpath(outdir), os.path.normpath(target_path)
     parsed = parse.parse_file(target_path)
     header = parse.parse_header(parsed['header'])
     data = parse.parse_data(parsed['data'])

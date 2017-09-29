@@ -2,8 +2,14 @@ import pandas as pd
 import shutil
 import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
+import math
+import logging
 
 def split_data(data_df):
+    '''
+    splits the data based off a given key. Probably have to tweak this
+    to make it more generic. handle the rounding outside?
+    '''
     t_key = 'Temperature (K)'
     data_df = data_df
     data_df[t_key] = data_df[t_key].round(1)
@@ -30,12 +36,12 @@ def compute_chi(m, e_mass, y_mass,
 
 
 def calculate_chi(data_df, e_mass, y_mass,
-                  moles, dmc):
+                   moles, dmc):
     """
-    Mutates the provided data_df, appending calculated 
+    Mutates the provided data_df, appending calculated
     chi' and chi" values
     """
-    # calculate the emulated values
+    # calculate the emulated values. d1 is chi', d2 chi"
     d1 = compute_chi(data_df["m' (emu)"],
                      e_mass,
                      y_mass,
@@ -46,9 +52,19 @@ def calculate_chi(data_df, e_mass, y_mass,
                      y_mass,
                      moles,
                      dmc)
-    data_df["chi' (emu)"] = d1
-    data_df['chi" (emu)'] = d2
-    return data_df
+    return {"chi' (emu)": d1,
+            'chi" (emu)': d2}
+
+def compute_chi_p_fit(data_df, wave_freq,
+                      chi_t, chi_s, alpha, tau):
+    """
+    Calculates the chi' (fit) value for a given row instance
+    """
+    return chi_s + (chi_t - chi_s) * (1 + (2 * math.pi * wave_freq * tau) ** (1 - alpha) * math.sin(math.pi * alpha / 2)) / (1 + 2 * (2 * math.pi * wave_freq * tau) ** (1 - alpha) * math.sin(math.pi * alpha / 2) + (2 * math.pi * wave_freq * tau) ** (2 - 2 * alpha))
+
+def compute_chi_pp_fit(data_df, wave_freq,
+                      chi_t, chi_s, alpha, tau):
+    return (chi_t - chi_s) * ((2 * math.pi * wave_freq * tau) ** (1 - alpha) * math.cos(math.pi * alpha / 2)) / (1 + 2 * (2 * math.pi * wave_freq * tau) ** (1 - alpha) * math.sin(math.pi * alpha / 2) + (2 * math.pi * wave_freq * tau) ** (2 - 2 * alpha))
 
 def insert_df_excel(df, sheet, rt, ct, skip_n=0):
     for r, row in enumerate(dataframe_to_rows(df), start=rt):

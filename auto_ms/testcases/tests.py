@@ -104,3 +104,6 @@ class TestCalculation:
 
     def test_calculate_chi_fit(self):
         pass
+
+    def test_optimize_chi_fit(self):
+        pass
