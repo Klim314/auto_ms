@@ -2,12 +2,13 @@ from setuptools import setup, find_packages
 
 setup(name='auto_ms',
       packages=find_packages(),
-      version='0.0.2',
+      version='0.0.3',
       author='klim314',
       description='Tools for processing MS output',
       author_email='klim314@gmail.com',
       entry_points={"console_scripts": [
           "ms_split_temp=auto_ms.main:tempsplit_entry",
+          "ika=auto_ms.main:ika"
       ]},
       zip_safe=False,
       url='https://github.com/klim314/auto_ms',
