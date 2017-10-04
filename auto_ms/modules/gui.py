@@ -1,3 +1,8 @@
+"""
+GUI for collecting inputs
+NEEDS REFACTOR BADLY
+"""
+
 import tkinter as tk
 from tkinter import simpledialog
 
@@ -7,6 +12,7 @@ class InputDialog:
         self.geometry = geometry
         self.res = {}
         self.root = tk.Tk()
+        self.root.wm_protocol('WM_DELETE_WINDOW', self.quit)
         self.root.title = "Input form"
         self.inputs = {}
         self.fields = fields
@@ -75,6 +81,7 @@ class InputDialog:
         print("TRIGGERED")
         self.res['quit'] = True
         self.root.quit()
+        self.root.destroy()
 
 
 def mass_event(event, root):
@@ -114,7 +121,7 @@ def param_input(header=None, prefill=None, geometry=None):
     a.run()
 
     res = a.res
-    a.root.withdraw()
+    # a.root.withdraw()
     return (res, a.geometry)
 
 
@@ -123,7 +130,7 @@ def check_param(param):
     Attempts to check if all parameters are correct
     """
     res = {}
-    print(param)
+    # print(param)
     if 'quit' in param and param['quit']:
         print("Quitting")
         quit()
@@ -137,16 +144,18 @@ def check_param(param):
         return -1
 
 
-def param_input_loop():
+def param_input_loop(prefill = None):
+    """
+    Displays an input box for the collection of certain parameters
+    """
     val = 0
     header = None
-    prefill = None
     geometry = None
     while True:
         print("prefill: ", prefill)
         res, geometry = param_input(header=header, prefill=prefill,
                                     geometry=geometry)
-        print(geometry)
+        # print(geometry)
         val = check_param(res)
         if val == -1:
             header = 'Invalid input'
@@ -156,6 +165,7 @@ def param_input_loop():
             prefill = None
         else:
             break
-       
+    return res
 
-param_input_loop()
+if __name__ == '__main__':
+    param_input_loop()
