@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(name='auto_ms',
       packages=find_packages(),
-      version='0.0.3',
+      version='0.1.1',
       author='klim314',
       description='Tools for processing MS output',
       author_email='klim314@gmail.com',
@@ -20,4 +20,4 @@ setup(name='auto_ms',
                    # Specify the Python versions you support here. In particular, ensure
                    # that you indicate whether you support Python 2, Python 3 or both.
                    'Programming Language :: Python :: 3'],
-      install_requires=['pandas'])
+      install_requires=['pandas', 'numpy', 'openpyxl'])

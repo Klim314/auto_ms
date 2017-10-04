@@ -1,6 +1,6 @@
 import os
-from modules import parse, process, gui
-from modules import handle_input as hi
+from auto_ms.modules import parse, process, gui
+from auto_ms.modules import handle_input as hi
 from pprint import pprint
 from collections import defaultdict
 import argparse
