@@ -113,3 +113,6 @@ configfiles/rendered/
 #snakemake
 *.snakemake*
 documentation/example/output/*
+
+#Test data 
+playpen/*
